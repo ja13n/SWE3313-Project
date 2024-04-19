@@ -35,6 +35,7 @@ public class Main extends Application {
         launch();
         System.out.println("Hello World!");
         System.out.println("Jack Example Commit");
+        System.out.println("Braden Example Commit!");
     }
 
 }
