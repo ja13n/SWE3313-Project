@@ -1,3 +1,5 @@
+package com.example;
+
 public class SalesRepresentative {
     private int salesRepID;
     private ContactInformation contactInfo;
