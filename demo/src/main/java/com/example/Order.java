@@ -12,6 +12,8 @@ public class Order {
     public Order(int orderID)
     {
         this.orderID = orderID;
+        itemslist = new LinkedList<Item>();
 
+        
     }
 }
