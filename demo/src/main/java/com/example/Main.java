@@ -4,10 +4,12 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -41,6 +43,15 @@ public class Main extends Application {
 
         PasswordField pwBox = new PasswordField();
         gp.add(pwBox, 1, 2);
+
+        Button btn = new Button("Log In");
+        btn.setOnAction(e -> {
+            gp.add(new Label("Hello There"), 1, 6);
+        });
+        HBox hb = new HBox(10);
+        hb.setAlignment(Pos.BOTTOM_RIGHT);
+        hb.getChildren().add(btn);
+        gp.add(hb,1, 4);
         return gp;
     }
 
