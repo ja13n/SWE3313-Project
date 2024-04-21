@@ -31,7 +31,7 @@ public class Main extends Application {
 
     public GridPane loginPage(GridPane gp) {
         VBox b = new VBox();
-        Label userName = new Label("User Name:");
+        Label userName = new Label("User Name or Customer ID:");
         gp.add(userName, 0, 1);
 
         TextField userTextField = new TextField();
