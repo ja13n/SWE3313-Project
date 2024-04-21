@@ -1,6 +1,6 @@
 module com.example {
     requires transitive javafx.graphics;
-    requires transitive javafx.controls;
+    requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
 

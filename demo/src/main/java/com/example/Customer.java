@@ -26,6 +26,20 @@ public class Customer{
 
     }
 
+    // method to get customer info from database
+    public void selectDB(int customerID) throws SQLException, ClassNotFoundException {
+        int counter = 0;
+        Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+
+        try (Connection connection = DriverManager.getConnection("")) {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Students WHERE ID = " + customerID);
+            rs.next();
+            this.customerID = rs.getInt(1);
+            this.companyName = rs.getString(2);
+        }
+    }
+
     // CustomerID getter method
     public int getCustomerID() {return this.customerID;}
 
