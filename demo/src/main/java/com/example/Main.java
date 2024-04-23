@@ -121,15 +121,58 @@ public class Main extends Application {
         GridPane gp = new GridPane();
         gp.setAlignment(Pos.CENTER);
 
-        Label orderLabel = new Label("Order Page");
-        gp.add(orderLabel, 0, 0);
+        gp.setHgap(10); // Set horizontal gap
+        gp.setVgap(10); // Set vertical gap
+        gp.setPadding(new Insets(25, 25, 25, 25)); // Set padding
 
+        // Labels and TextFields
+        Label accountIdLabel = new Label("Account ID#: <15 characters, alpha numeric>");
+        TextField accountIdField = new TextField();
+        gp.add(accountIdLabel, 0, 0);
+        gp.add(accountIdField, 1, 0);
+
+        Label deliveryDateLabel = new Label("Delivery Date: <mm/dd/yyyy>");
+        TextField deliveryDateField = new TextField();
+        gp.add(deliveryDateLabel, 0, 1);
+        gp.add(deliveryDateField, 1, 1);
+
+        Label salesRepIdLabel = new Label("Sales Rep ID: <15 characters, alpha numeric>");
+        TextField salesRepIdField = new TextField();
+        gp.add(salesRepIdLabel, 0, 2);
+        gp.add(salesRepIdField, 1, 2);
+
+        Label deliveryRepIdLabel = new Label("Delivery Rep ID: <15 characters, alpha numeric>");
+        TextField deliveryRepIdField = new TextField();
+        gp.add(deliveryRepIdLabel, 0, 3);
+        gp.add(deliveryRepIdField, 1, 3);
+
+        Label itemNameLabel = new Label("Item Name");
+        gp.add(itemNameLabel, 0, 4);
+
+        Label quantityLabel = new Label("Quantity:");
+        gp.add(quantityLabel, 1, 4);
+
+        addOrderItem(gp, "ALG WHITE BEER 12/19.2C", "15");
+        addOrderItem(gp, "ALG WHITE BEER 4/6BTL", "25");
+        addOrderItem(gp, "ALG WHITE BEER 2/12 CANS", "30");
+
+        HBox buttonsBox = new HBox(10);
+        Button submitButton = new Button("Submit Order");
         Button backButton = new Button("Back to Login");
         backButton.setOnAction(e -> switchScenes(loginPageScene));
-        gp.add(backButton, 0, 1);
+        buttonsBox.getChildren().addAll(submitButton, backButton);
+
+        gp.add(buttonsBox, 0, 8, 4, 1);
 
         Scene orderScene = new Scene(gp, 640, 400);
         return orderScene;
+    }
+
+    private void addOrderItem(GridPane gp, String itemName, String quantity) {
+        Label itemNameLabel = new Label(itemName);
+        Label quantityLabel = new Label(quantity);
+        gp.add(itemNameLabel, 0, gp.getRowCount());
+        gp.add(quantityLabel, 1, gp.getRowCount() - 1);
     }
 
     public void switchScenes(Scene scene) {
