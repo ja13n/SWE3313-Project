@@ -42,6 +42,7 @@ public class Main extends Application {
         gp.add(pwBox, 1, 2);
 
         Button btn = new Button("Log In");
+        Button btn2 = new Button("Create Account");
 
         Label helloLabel = new Label("Hello There");
         helloLabel.setVisible(false); // Label is not visible initially
@@ -51,10 +52,16 @@ public class Main extends Application {
             helloLabel.setVisible(true); // Only make the label visible on button click
         });
 
+        btn2.setOnAction(e-> {
+            System.out.println("Hello World");
+        });
+
         HBox hb = new HBox(10);
         hb.setAlignment(Pos.BOTTOM_RIGHT);
         hb.getChildren().add(btn);
+        hb.getChildren().add(btn2);
         gp.add(hb, 1, 4);
+        gp.add(btn2, 2, 4);
         return gp;
     }
 
