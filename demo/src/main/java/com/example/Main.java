@@ -5,25 +5,27 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * 
  **/
 
 public class Main extends Application {
-    private Stage createAccountStage;
     private Scene createAccountScene;
     private Scene orderScene;
-    private Stage loginPageStage;
     private Scene loginPageScene;
     private Stage stage;
 
@@ -57,22 +59,28 @@ public class Main extends Application {
 
         Button btn = new Button("Log In");
         Button btn2 = new Button("Create Account");
-        Button testButton = new Button("Joel Test");
 
         Label helloLabel = new Label("Hello There");
         helloLabel.setVisible(false); // Label is not visible initially
         gp.add(helloLabel, 1, 6);
 
         btn.setOnAction(e -> {
-            helloLabel.setVisible(true); // Only make the label visible on button click
+            String userNam = "Customer1";
+            String password = "1234";
+
+            if (userTextField.getText().equals(userNam) && pwBox.getText().equals(password)) {
+                switchScenes(createOrderPage());
+            }
+            else {
+                Alert dialog = new Alert(AlertType.INFORMATION);
+                dialog.setHeaderText("Login failed, please make sure you are typing in the right username and password.");
+                Optional<ButtonType> result = dialog.showAndWait();
+            }
+
         });
 
         btn2.setOnAction(e -> {
             switchScenes(createAccountScene);
-        });
-
-        testButton.setOnAction(e -> {
-            switchScenes(orderScene);
         });
 
         HBox hb = new HBox(10);
@@ -81,7 +89,6 @@ public class Main extends Application {
         hb.getChildren().add(btn2);
         gp.add(hb, 1, 4);
         gp.add(btn2, 2, 4);
-        gp.add(testButton, 1, 9);
         createAccountScene = new Scene(gp, 640, 400);
         return createAccountScene;
     }
