@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,14 +19,12 @@ import java.io.IOException;
  * 
  **/
 
-
 public class Main extends Application {
     private Stage createAccountStage;
     private Scene createAccountScene;
     private Stage loginPageStage;
     private Scene loginPageScene;
     private Stage stage;
-
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -65,7 +64,7 @@ public class Main extends Application {
             helloLabel.setVisible(true); // Only make the label visible on button click
         });
 
-        btn2.setOnAction(e-> {
+        btn2.setOnAction(e -> {
             switchScenes(createAccountScene);
         });
 
@@ -79,33 +78,40 @@ public class Main extends Application {
         return createAccountScene;
     }
 
-    public Scene createAccountPage(){
+    public Scene createAccountPage() {
         GridPane gp = new GridPane();
         gp.setAlignment(Pos.CENTER);
         Button btn = new Button("Login");
-        btn.setOnAction(e-> switchScenes(loginPage()));
+        btn.setOnAction(e -> switchScenes(loginPage()));
         Button btn2 = new Button("Create Account:");
         gp.add(btn, 2, 6);
         gp.add(btn2, 2, 8);
         VBox box = new VBox();
+
         Label companyName = new Label("Company Name:");
+        TextField companyNameField = new TextField();
+
         Label address = new Label("Address:");
+        TextField addressField = new TextField();
+
         Label loadingDock = new Label("Loading Dock Capable:");
+        CheckBox loadingDockCheckbox = new CheckBox();
+
         Label deliveryHours = new Label("Delivery Hours:");
+        TextField deliveryHoursField = new TextField();
 
-
-        box.getChildren().addAll(companyName, address, loadingDock, deliveryHours);
+        box.getChildren().addAll(companyName, companyNameField, address, addressField, loadingDock, loadingDockCheckbox,
+                deliveryHours, deliveryHoursField);
         box.setPadding(new Insets(20, 20, 20, 20));
         box.setSpacing(30);
         gp.getChildren().add(box);
-        createAccountScene= new Scene(gp, 640, 400);
+        createAccountScene = new Scene(gp, 640, 400);
         return createAccountScene;
     }
 
-    public void switchScenes(Scene scene){
+    public void switchScenes(Scene scene) {
         stage.setScene(scene);
     }
-
 
     public static void main(String[] args) {
         launch();
