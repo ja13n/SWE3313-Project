@@ -22,6 +22,7 @@ import java.io.IOException;
 public class Main extends Application {
     private Stage createAccountStage;
     private Scene createAccountScene;
+    private Scene orderScene;
     private Stage loginPageStage;
     private Scene loginPageScene;
     private Stage stage;
@@ -31,6 +32,7 @@ public class Main extends Application {
         stage = primaryStage;
         loginPageScene = loginPage();
         createAccountScene = createAccountPage();
+        orderScene = createOrderPage();
         stage.setScene(loginPageScene);
         stage.show();
     }
@@ -55,6 +57,7 @@ public class Main extends Application {
 
         Button btn = new Button("Log In");
         Button btn2 = new Button("Create Account");
+        Button testButton = new Button("Joel Test");
 
         Label helloLabel = new Label("Hello There");
         helloLabel.setVisible(false); // Label is not visible initially
@@ -68,12 +71,17 @@ public class Main extends Application {
             switchScenes(createAccountScene);
         });
 
+        testButton.setOnAction(e -> {
+            switchScenes(orderScene);
+        });
+
         HBox hb = new HBox(10);
         hb.setAlignment(Pos.BOTTOM_RIGHT);
         hb.getChildren().add(btn);
         hb.getChildren().add(btn2);
         gp.add(hb, 1, 4);
         gp.add(btn2, 2, 4);
+        gp.add(testButton, 1, 9);
         createAccountScene = new Scene(gp, 640, 400);
         return createAccountScene;
     }
@@ -107,6 +115,21 @@ public class Main extends Application {
         gp.getChildren().add(box);
         createAccountScene = new Scene(gp, 640, 400);
         return createAccountScene;
+    }
+
+    public Scene createOrderPage() {
+        GridPane gp = new GridPane();
+        gp.setAlignment(Pos.CENTER);
+
+        Label orderLabel = new Label("Order Page");
+        gp.add(orderLabel, 0, 0);
+
+        Button backButton = new Button("Back to Login");
+        backButton.setOnAction(e -> switchScenes(loginPageScene));
+        gp.add(backButton, 0, 1);
+
+        Scene orderScene = new Scene(gp, 640, 400);
+        return orderScene;
     }
 
     public void switchScenes(Scene scene) {
