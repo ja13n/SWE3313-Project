@@ -10,26 +10,39 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * 
+ **/
+
+
 public class Main extends Application {
+    private Stage createAccountStage;
+    private Scene createAccountScene;
+    private Stage loginPageStage;
+    private Scene loginPageScene;
+    private Stage stage;
+
 
     @Override
-    public void start(Stage stage) throws IOException {
-        // Setting up the grid for the fields.
-        GridPane g = new GridPane();
-        g.setAlignment(Pos.CENTER); // setting the alignment of the grid to the center of the screen
-        g.setHgap(10); // Setting the horizontal gap of the grid.
-        g.setVgap(10); // Setting the vertical gap of the grid.
-        g.setPadding(new Insets(25, 25, 25, 25)); // Creating padding for the grid to make it look even more centered
-        // Set scene of laya
-        Scene s = new Scene(loginPage(g), 640, 400);
-        stage.setScene(s);
+    public void start(Stage primaryStage) throws IOException {
+        stage = primaryStage;
+        loginPageScene = loginPage();
+        createAccountScene = createAccountPage();
+        stage.setScene(loginPageScene);
         stage.show();
     }
 
-    public GridPane loginPage(GridPane gp) {
+    public Scene loginPage() {
+        GridPane gp = new GridPane();
+        gp.setAlignment(Pos.CENTER); // setting the alignment of the grid to the center of the screen
+        gp.setHgap(10); // Setting the horizontal gap of the grid.
+        gp.setVgap(10); // Setting the vertical gap of the grid.
+        gp.setPadding(new Insets(25, 25, 25, 25)); // Creating padding for the grid to make it look even more centered
+        // Set scene of layout
         Label userName = new Label("User Name or Customer ID:");
         gp.add(userName, 0, 1);
 
@@ -53,7 +66,7 @@ public class Main extends Application {
         });
 
         btn2.setOnAction(e-> {
-            System.out.println("Hello World");
+            switchScenes(createAccountScene);
         });
 
         HBox hb = new HBox(10);
@@ -62,11 +75,40 @@ public class Main extends Application {
         hb.getChildren().add(btn2);
         gp.add(hb, 1, 4);
         gp.add(btn2, 2, 4);
-        return gp;
+        createAccountScene = new Scene(gp, 640, 400);
+        return createAccountScene;
     }
+
+    public Scene createAccountPage(){
+        GridPane gp = new GridPane();
+        gp.setAlignment(Pos.CENTER);
+        Button btn = new Button("Login");
+        btn.setOnAction(e-> switchScenes(loginPage()));
+        Button btn2 = new Button("Create Account:");
+        gp.add(btn, 2, 6);
+        gp.add(btn2, 2, 8);
+        VBox box = new VBox();
+        Label companyName = new Label("Company Name:");
+        Label address = new Label("Address:");
+        Label loadingDock = new Label("Loading Dock Capable:");
+        Label deliveryHours = new Label("Delivery Hours:");
+
+
+        box.getChildren().addAll(companyName, address, loadingDock, deliveryHours);
+        box.setPadding(new Insets(20, 20, 20, 20));
+        box.setSpacing(30);
+        gp.getChildren().add(box);
+        createAccountScene= new Scene(gp, 640, 400);
+        return createAccountScene;
+    }
+
+    public void switchScenes(Scene scene){
+        stage.setScene(scene);
+    }
+
 
     public static void main(String[] args) {
         launch();
-    }
+    } // end main
 
-}
+} // end class
