@@ -10,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -32,7 +31,6 @@ public class Main extends Application {
 
 
     public GridPane loginPage(GridPane gp) {
-        VBox b = new VBox();
         Label userName = new Label("User Name or Customer ID:");
         gp.add(userName, 0, 1);
 
