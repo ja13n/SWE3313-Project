@@ -21,14 +21,13 @@ public class Main extends Application {
         GridPane g = new GridPane();
         g.setAlignment(Pos.CENTER); // setting the alignment of the grid to the center of the screen
         g.setHgap(10); // Setting the horizontal gap of the grid.
-        g.setVgap(10); //Setting the vertical gap of the grid.
+        g.setVgap(10); // Setting the vertical gap of the grid.
         g.setPadding(new Insets(25, 25, 25, 25)); // Creating padding for the grid to make it look even more centered
         // Set scene of laya
         Scene s = new Scene(loginPage(g), 640, 400);
         stage.setScene(s);
         stage.show();
     }
-
 
     public GridPane loginPage(GridPane gp) {
         Label userName = new Label("User Name or Customer ID:");
@@ -43,13 +42,19 @@ public class Main extends Application {
         gp.add(pwBox, 1, 2);
 
         Button btn = new Button("Log In");
+
+        Label helloLabel = new Label("Hello There");
+        helloLabel.setVisible(false); // Label is not visible initially
+        gp.add(helloLabel, 1, 6);
+
         btn.setOnAction(e -> {
-            gp.add(new Label("Hello There"), 1, 6);
+            helloLabel.setVisible(true); // Only make the label visible on button click
         });
+
         HBox hb = new HBox(10);
         hb.setAlignment(Pos.BOTTOM_RIGHT);
         hb.getChildren().add(btn);
-        gp.add(hb,1, 4);
+        gp.add(hb, 1, 4);
         return gp;
     }
 
