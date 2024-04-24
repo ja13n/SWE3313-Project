@@ -219,7 +219,7 @@ public class Main extends Application {
         gp2.add(confirmationSalesRepID, 1, 10);
         gp2.add(confirmationDeliveryDate, 1, 15);
         gp2.add(confirmationDeliveryID, 1, 20);
-        gp2.add(okButton2, 1, 0);
+        gp2.add(confirmedOrder, 1, 0);
 
         gp2.add(okButton2, 20, 20);
 
