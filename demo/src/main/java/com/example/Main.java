@@ -300,7 +300,7 @@ public class Main extends Application {
 
         gp.add(addCustomerButton, 0, 7);
         gp.add(myListView, 2, 1, 1, 7);
-        gp.add(backButton, 1, 1);
+        gp.add(backButton, 1, 7);
 
         Scene customerPage = new Scene(gp, 640, 400);
         return customerPage;
