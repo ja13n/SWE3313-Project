@@ -182,7 +182,7 @@ public class Main extends Application {
         backButton.setOnAction(e -> switchScenes(loginPageScene));
         buttonsBox.getChildren().addAll(submitButton, backButton);
 
-        gp.add(buttonsBox, 2, 8, 8, 1);
+        gp.add(buttonsBox, 1, 8, 8, 1);
 
         Scene orderScene = new Scene(gp, 640, 400);
         return orderScene;
