@@ -7,8 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
@@ -28,6 +32,8 @@ public class Main extends Application {
     private Scene orderScene;
     private Scene loginPageScene;
     private Stage stage;
+
+    private boolean thisloadingDock;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -206,7 +212,7 @@ public class Main extends Application {
         gp.add(salesButton, 0, 2);
 
         customerButton.setOnAction(e -> {
-            //switchScenes(customerPage());
+            switchScenes(customerPage());
         });
 
         salesButton.setOnAction(e -> {
@@ -222,18 +228,72 @@ public class Main extends Application {
     {
         CustomerDatabase cd = new CustomerDatabase();
 
-        cd.addCustomer(null);
+        for (int i = 0; i < 10; i++) {
+            cd.addCustomer(i, "budweiser", true, "9-9", "email@gmail.com", "404-1234-5678");
+        }
+
         GridPane gp = new GridPane();
-        gp.setAlignment(Pos.TOP_LEFT);
+        gp.setAlignment(Pos.BASELINE_CENTER);
 
         gp.setHgap(10); // Set horizontal gap
         gp.setVgap(10); // Set vertical gap
         gp.setPadding(new Insets(25, 25, 25, 25)); // Set padding
 
-        
+        Button addCustomerButton = new Button("Add Customer");
 
-        Scene customerPage = new Scene(gp);
+        Label companyNameLabel = new Label("Company Name: ");
+        TextField companyNameTF = new TextField();
+        String companyNameString = companyNameTF.getText();
+
+        Label deliveryHoursLabel = new Label("Delivery Hours: ");
+        TextField deliveryHoursTF = new TextField();
+        String deliveryHoursString = companyNameTF.getText();
+
+        Label emailLabel = new Label("Email: ");
+        TextField emailTF = new TextField();
+        String emailString = companyNameTF.getText();
+
+        Label phoneNumberLabel = new Label("PhoneNumber");
+        TextField phoneNumberTF = new TextField();
+        String phoneNumberString = companyNameTF.getText();
+
+        ContactInformation contactInfo = new ContactInformation(emailString, phoneNumberString);
+
+        final ToggleGroup group = new ToggleGroup();
+
+        Label loadingDockLabel = new Label("Loading Dock?");
+        RadioButton trueRB = new RadioButton("Yes");
+        RadioButton falseRB = new RadioButton("False");
+
+        
+        if(trueRB.isSelected())
+            thisloadingDock = true;
+        else
+            thisloadingDock = false;
+
+        if(falseRB.isSelected())
+            thisloadingDock = false;
+
+        addCustomerButton.setOnAction(e -> {
+            Customer customer = new Customer(11, companyNameString, contactInfo, thisloadingDock, deliveryHoursString);
+            cd.addCustomer(customer);
+        });
+
+        ListView<String> myListView = new ListView<>();
+        myListView.getItems().addAll(cd.printlistofCustomers());
+
+        gp.add(falseRB, 0, 0);
+        gp.add(trueRB, 0, 0);
+
+        gp.add(companyNameLabel, 1, 1);
+        gp.add(companyNameTF, 1, 2);
+
+        gp.add(myListView, 4, 5);
+
+        Scene customerPage = new Scene(gp, 640, 400);
         return customerPage;
+
+        
     }
 
     private void addOrderItem(GridPane gp, String itemName, String quantity) {

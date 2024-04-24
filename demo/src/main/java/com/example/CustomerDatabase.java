@@ -34,4 +34,16 @@ public class CustomerDatabase
         return listOfCustomers;
     }
 
+    public String printlistofCustomers()
+    {
+        String rtn = "";
+        for(Customer customer : listOfCustomers)
+        {
+            rtn += customer.getCompanyName() + " " + customer.getDeliveryHours() + " " + customer.getContactInfo().getEmail() + " " + customer.getContactInfo().getPhoneNumber()
+             + "\n";
+             
+        }
+        return rtn;
+    }
+
 }
