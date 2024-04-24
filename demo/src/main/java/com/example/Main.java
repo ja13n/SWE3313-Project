@@ -35,7 +35,7 @@ public class Main extends Application {
         loginPageScene = loginPage();
         createAccountScene = createAccountPage();
         orderScene = createOrderPage();
-        stage.setScene(loginPageScene);
+        stage.setScene(choicePage());
         stage.show();
     }
 
@@ -59,6 +59,7 @@ public class Main extends Application {
 
         Button btn = new Button("Log In");
         Button btn2 = new Button("Create Account");
+        Button backButton = new Button("Back");
 
         Label helloLabel = new Label("Hello There");
         helloLabel.setVisible(false); // Label is not visible initially
@@ -83,12 +84,17 @@ public class Main extends Application {
             switchScenes(createAccountScene);
         });
 
+        backButton.setOnAction(e -> {
+            switchScenes(choicePage());
+        });
+
         HBox hb = new HBox(10);
         hb.setAlignment(Pos.BOTTOM_RIGHT);
         hb.getChildren().add(btn);
         hb.getChildren().add(btn2);
         gp.add(hb, 1, 4);
         gp.add(btn2, 2, 4);
+        gp.add(backButton,2,10);
         createAccountScene = new Scene(gp, 640, 400);
         return createAccountScene;
     }
@@ -101,6 +107,7 @@ public class Main extends Application {
         Button btn2 = new Button("Create Account:");
         gp.add(btn, 2, 6);
         gp.add(btn2, 2, 8);
+        
         VBox box = new VBox();
 
         Label companyName = new Label("Company Name:");
@@ -173,6 +180,42 @@ public class Main extends Application {
 
         Scene orderScene = new Scene(gp, 640, 400);
         return orderScene;
+    }
+
+    public Scene choicePage()
+    {
+        GridPane gp = new GridPane();
+        gp.setAlignment(Pos.CENTER);
+
+        gp.setHgap(10); // Set horizontal gap
+        gp.setVgap(10); // Set vertical gap
+        gp.setPadding(new Insets(25, 25, 25, 25)); // Set padding
+        
+        Label choiceLabel = new Label("Please choose an option:");
+        gp.add(choiceLabel, 0, 1);
+
+        Button customerButton = new Button("Customer Page");
+        Button salesButton = new Button("Sales Personnel");
+
+        HBox hb = new HBox(10);
+        hb.setAlignment(Pos.CENTER);
+        hb.getChildren().add(customerButton);
+        hb.getChildren().add(salesButton);
+        gp.add(hb, 1, 4);
+        gp.add(customerButton, 0, 2);
+        gp.add(salesButton, 0, 1);
+
+        customerButton.setOnAction(e -> {
+            //IMPLEMENT LATER FOR CUSTOMER DATABASE SCREEN
+        });
+
+        salesButton.setOnAction(e -> {
+            switchScenes(loginPage());
+        });
+
+        Scene choicePage = new Scene(gp, 640, 400);
+        return choicePage;
+
     }
 
     private void addOrderItem(GridPane gp, String itemName, String quantity) {
