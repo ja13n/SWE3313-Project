@@ -77,10 +77,10 @@ public class Main extends Application {
 
             if (userTextField.getText().equals(userNam) && pwBox.getText().equals(password)) {
                 switchScenes(createOrderPage());
-            }
-            else {
+            } else {
                 Alert dialog = new Alert(AlertType.INFORMATION);
-                dialog.setHeaderText("Login failed, please make sure you are typing in the right username and password.");
+                dialog.setHeaderText(
+                        "Login failed, please make sure you are typing in the right username and password.");
                 Optional<ButtonType> result = dialog.showAndWait();
             }
 
@@ -100,7 +100,7 @@ public class Main extends Application {
         hb.getChildren().add(btn2);
         gp.add(hb, 1, 4);
         gp.add(btn2, 2, 4);
-        gp.add(backButton,2,10);
+        gp.add(backButton, 2, 10);
         loginPageScene = new Scene(gp, 640, 400);
         return loginPageScene;
     }
@@ -113,7 +113,7 @@ public class Main extends Application {
         Button btn2 = new Button("Create Account:");
         gp.add(btn, 2, 6);
         gp.add(btn2, 2, 8);
-        
+
         VBox box = new VBox();
 
         Label companyName = new Label("Company Name:");
@@ -188,15 +188,14 @@ public class Main extends Application {
         return orderScene;
     }
 
-    public Scene choicePage()
-    {
+    public Scene choicePage() {
         GridPane gp = new GridPane();
         gp.setAlignment(Pos.BASELINE_CENTER);
 
         gp.setHgap(10); // Set horizontal gap
         gp.setVgap(10); // Set vertical gap
         gp.setPadding(new Insets(25, 25, 25, 25)); // Set padding
-        
+
         Label choiceLabel = new Label("Please choose an option:");
         gp.add(choiceLabel, 2, 1);
 
@@ -224,76 +223,72 @@ public class Main extends Application {
 
     }
 
-    public Scene customerPage()
-    {
+    public Scene customerPage() {
         CustomerDatabase cd = new CustomerDatabase();
-
-        for (int i = 0; i < 10; i++) {
-            cd.addCustomer(i, "budweiser", true, "9-9", "email@gmail.com", "404-1234-5678");
-        }
-
-        GridPane gp = new GridPane();
-        gp.setAlignment(Pos.BASELINE_CENTER);
-
-        gp.setHgap(10); // Set horizontal gap
-        gp.setVgap(10); // Set vertical gap
-        gp.setPadding(new Insets(25, 25, 25, 25)); // Set padding
-
-        Button addCustomerButton = new Button("Add Customer");
-
-        Label companyNameLabel = new Label("Company Name: ");
-        TextField companyNameTF = new TextField();
-        String companyNameString = companyNameTF.getText();
-
-        Label deliveryHoursLabel = new Label("Delivery Hours: ");
-        TextField deliveryHoursTF = new TextField();
-        String deliveryHoursString = companyNameTF.getText();
-
-        Label emailLabel = new Label("Email: ");
-        TextField emailTF = new TextField();
-        String emailString = companyNameTF.getText();
-
-        Label phoneNumberLabel = new Label("PhoneNumber");
-        TextField phoneNumberTF = new TextField();
-        String phoneNumberString = companyNameTF.getText();
-
-        ContactInformation contactInfo = new ContactInformation(emailString, phoneNumberString);
-
-        final ToggleGroup group = new ToggleGroup();
-
-        Label loadingDockLabel = new Label("Loading Dock?");
-        RadioButton trueRB = new RadioButton("Yes");
-        RadioButton falseRB = new RadioButton("False");
-
-        
-        if(trueRB.isSelected())
-            thisloadingDock = true;
-        else
-            thisloadingDock = false;
-
-        if(falseRB.isSelected())
-            thisloadingDock = false;
-
-        addCustomerButton.setOnAction(e -> {
-            Customer customer = new Customer(11, companyNameString, contactInfo, thisloadingDock, deliveryHoursString);
-            cd.addCustomer(customer);
-        });
 
         ListView<String> myListView = new ListView<>();
         myListView.getItems().addAll(cd.printlistofCustomers());
 
-        gp.add(falseRB, 0, 0);
-        gp.add(trueRB, 0, 0);
+        GridPane gp = new GridPane();
+        gp.setAlignment(Pos.BASELINE_CENTER);
 
-        gp.add(companyNameLabel, 1, 1);
-        gp.add(companyNameTF, 1, 2);
+        gp.setHgap(10);
+        gp.setVgap(10);
+        gp.setPadding(new Insets(25, 25, 25, 25));
 
-        gp.add(myListView, 4, 5);
+        Button addCustomerButton = new Button("Add Customer");
+
+        Label companyNameLabel = new Label("Company Name: ");
+        TextField companyNameField = new TextField();
+
+        Label deliveryHoursLabel = new Label("Delivery Hours: ");
+        TextField deliveryHoursField = new TextField();
+
+        Label emailLabel = new Label("Email: ");
+        TextField emailField = new TextField();
+
+        Label phoneNumberLabel = new Label("Phone Number: ");
+        TextField phoneNumberField = new TextField();
+
+        Label loadingDockLabel = new Label("Loading Dock Capable:");
+
+        final ToggleGroup loadingDockGroup = new ToggleGroup();
+        RadioButton trueRB = new RadioButton("Yes");
+        RadioButton falseRB = new RadioButton("No");
+        trueRB.setToggleGroup(loadingDockGroup);
+        falseRB.setToggleGroup(loadingDockGroup);
+
+        gp.add(companyNameLabel, 0, 1);
+        gp.add(companyNameField, 1, 1);
+        gp.add(deliveryHoursLabel, 0, 2);
+        gp.add(deliveryHoursField, 1, 2);
+        gp.add(emailLabel, 0, 3);
+        gp.add(emailField, 1, 3);
+        gp.add(phoneNumberLabel, 0, 4);
+        gp.add(phoneNumberField, 1, 4);
+        gp.add(loadingDockLabel, 0, 5);
+        gp.add(trueRB, 0, 6);
+        gp.add(falseRB, 1, 6);
+
+        addCustomerButton.setOnAction(e -> {
+            String companyName = companyNameField.getText();
+            String deliveryHours = deliveryHoursField.getText();
+            String email = emailField.getText();
+            String phoneNumber = phoneNumberField.getText();
+            boolean loadingDock = trueRB.isSelected();
+
+            ContactInformation contactInfo = new ContactInformation(email, phoneNumber);
+            Customer customer = new Customer(cd.getNextCustomerId(), companyName, contactInfo, loadingDock,
+                    deliveryHours);
+            cd.addCustomer(customer);
+            myListView.getItems().add(0, customer.toString());
+        });
+
+        gp.add(addCustomerButton, 0, 7);
+        gp.add(myListView, 2, 1, 1, 7);
 
         Scene customerPage = new Scene(gp, 640, 400);
         return customerPage;
-
-        
     }
 
     private void addOrderItem(GridPane gp, String itemName, String quantity) {
