@@ -62,13 +62,13 @@ public class Order {
      * calculates the total price of the order
      * @return total
      */
-    public double calculateTotalPrice()
-    {
-        double total = 0;
-        for (int i = 0; i < itemsList.size(); i++) {
-            total += itemsList.get(i).getPrice();
-        }
-        return total;
-    }
+//    public double calculateTotalPrice()
+//    {
+//        double total = 0;
+//        for (int i = 0; i < itemsList.size(); i++) {
+//            total += itemsList.get(i).getPrice();
+//        }
+//        return total;
+//    }
 
 }
