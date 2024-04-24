@@ -211,17 +211,19 @@ public class Main extends Application {
         Label confirmationSalesRepID = new Label("Sales Rep ID: " + salesRepString);
         Label confirmationDeliveryDate = new Label("Delivery Date: " + deliveryDateString);
         Label confirmationDeliveryID = new Label("Account ID: " + deliveryIDString);
+        Label confirmedOrder = new Label("Order Details: ");
 
-        Button backButton2 = new Button("Back");
+        Button okButton2 = new Button("OK");
 
-        gp2.add(confirmationAccID, 1, 2);
-        gp2.add(confirmationSalesRepID, 1, 4);
-        gp2.add(confirmationDeliveryDate, 1, 6);
-        gp2.add(confirmationDeliveryID, 1, 8);
+        gp2.add(confirmationAccID, 1, 5);
+        gp2.add(confirmationSalesRepID, 1, 10);
+        gp2.add(confirmationDeliveryDate, 1, 15);
+        gp2.add(confirmationDeliveryID, 1, 20);
+        gp2.add(okButton2, 1, 0);
 
-        gp2.add(backButton2, 10, 10);
+        gp2.add(okButton2, 20, 20);
 
-        backButton2.setOnAction(e -> {
+        okButton2.setOnAction(e -> {
             switchScenes(orderScene);
         });
         
