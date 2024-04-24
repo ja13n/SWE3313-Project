@@ -185,7 +185,10 @@ public class Main extends Application {
 
         HBox buttonsBox = new HBox();
         Button submitButton = new Button("Submit");
-        Order order = new Order(new Item());
+        Item item = new Item(); // creating an empy item object.
+        item.findItemDB(salesRepIdField.getText()); // finding the item in the database.
+        Order order = new Order();
+        order.getItemsList().add(new Item(item.getItemID(), item.getItemName(), item.getQuantity())); // adding the item to the order list.
         Button backButton = new Button("Back to Login");
         backButton.setOnAction(e -> switchScenes(loginPageScene));
         buttonsBox.getChildren().addAll(submitButton, backButton);

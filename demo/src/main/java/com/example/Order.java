@@ -21,8 +21,8 @@ public class Order {
         this.orderID = orderID;
     }
 
-    public Order (Item item) {
-        this.itemsList.add(item);
+    public Order () {
+
     }
 
     /**
