@@ -185,7 +185,7 @@ public class Main extends Application {
 
         HBox buttonsBox = new HBox();
         Button submitButton = new Button("Submit");
-        Order order = new Order(new Item())
+        Order order = new Order(new Item());
         Button backButton = new Button("Back to Login");
         backButton.setOnAction(e -> switchScenes(loginPageScene));
         buttonsBox.getChildren().addAll(submitButton, backButton);

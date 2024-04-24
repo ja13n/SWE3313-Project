@@ -50,7 +50,6 @@
          }
      }
 
-     public Item
      /**
       * returns the item id
       * @return itemID
