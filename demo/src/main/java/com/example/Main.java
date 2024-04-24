@@ -101,14 +101,14 @@ public class Main extends Application {
         gp.add(hb, 1, 4);
         gp.add(btn2, 2, 4);
         gp.add(backButton,2,10);
-        createAccountScene = new Scene(gp, 640, 400);
-        return createAccountScene;
+        loginPageScene = new Scene(gp, 640, 400);
+        return loginPageScene;
     }
 
     public Scene createAccountPage() {
         GridPane gp = new GridPane();
         gp.setAlignment(Pos.CENTER);
-        Button btn = new Button("Login");
+        Button btn = new Button("Back to login");
         btn.setOnAction(e -> switchScenes(loginPage()));
         Button btn2 = new Button("Create Account:");
         gp.add(btn, 2, 6);
@@ -131,7 +131,7 @@ public class Main extends Application {
         box.getChildren().addAll(companyName, companyNameField, address, addressField, loadingDock, loadingDockCheckbox,
                 deliveryHours, deliveryHoursField);
         box.setPadding(new Insets(20, 20, 20, 20));
-        box.setSpacing(30);
+        box.setSpacing(10);
         gp.getChildren().add(box);
         createAccountScene = new Scene(gp, 640, 400);
         return createAccountScene;
