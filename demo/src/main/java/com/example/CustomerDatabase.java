@@ -16,6 +16,13 @@ public class CustomerDatabase
     {
         listOfCustomers.add(customer);
     }
+
+    public void addCustomer(int customerID, String companyName, boolean loadingDock, String deliveryHours, String email, String phoneNumber)
+    {
+        ContactInformation contactinfo = new ContactInformation(email, phoneNumber);
+        Customer customer = new Customer(customerID, companyName, contactinfo, loadingDock, deliveryHours);
+        addCustomer(customer);
+    }
    
     public void removeCustomer(Customer customer)
     {

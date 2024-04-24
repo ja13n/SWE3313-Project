@@ -185,14 +185,14 @@ public class Main extends Application {
     public Scene choicePage()
     {
         GridPane gp = new GridPane();
-        gp.setAlignment(Pos.CENTER);
+        gp.setAlignment(Pos.BASELINE_CENTER);
 
         gp.setHgap(10); // Set horizontal gap
         gp.setVgap(10); // Set vertical gap
         gp.setPadding(new Insets(25, 25, 25, 25)); // Set padding
         
         Label choiceLabel = new Label("Please choose an option:");
-        gp.add(choiceLabel, 0, 1);
+        gp.add(choiceLabel, 2, 1);
 
         Button customerButton = new Button("Customer Page");
         Button salesButton = new Button("Sales Personnel");
@@ -201,12 +201,12 @@ public class Main extends Application {
         hb.setAlignment(Pos.CENTER);
         hb.getChildren().add(customerButton);
         hb.getChildren().add(salesButton);
-        gp.add(hb, 1, 4);
-        gp.add(customerButton, 0, 2);
-        gp.add(salesButton, 0, 1);
+        gp.add(hb, 5, 4);
+        gp.add(customerButton, 4, 2);
+        gp.add(salesButton, 0, 2);
 
         customerButton.setOnAction(e -> {
-            //IMPLEMENT LATER FOR CUSTOMER DATABASE SCREEN
+            //switchScenes(customerPage());
         });
 
         salesButton.setOnAction(e -> {
@@ -216,6 +216,24 @@ public class Main extends Application {
         Scene choicePage = new Scene(gp, 640, 400);
         return choicePage;
 
+    }
+
+    public Scene customerPage()
+    {
+        CustomerDatabase cd = new CustomerDatabase();
+
+        cd.addCustomer(null);
+        GridPane gp = new GridPane();
+        gp.setAlignment(Pos.TOP_LEFT);
+
+        gp.setHgap(10); // Set horizontal gap
+        gp.setVgap(10); // Set vertical gap
+        gp.setPadding(new Insets(25, 25, 25, 25)); // Set padding
+
+        
+
+        Scene customerPage = new Scene(gp);
+        return customerPage;
     }
 
     private void addOrderItem(GridPane gp, String itemName, String quantity) {
