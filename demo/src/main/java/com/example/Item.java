@@ -32,7 +32,7 @@ public class Item {
 
     }
 
-    public void getItems() throws ClassNotFoundException {
+    public void getItemsDB() throws ClassNotFoundException {
         Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 
         String sql = "SELECT ProductID, EPD, OnHand FROM Inventory WHERE OnHand != 0 AND EPD !=\"null\"LIMIT 300";
@@ -83,9 +83,13 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public ArrayList<Item> getItems() {
+        return this.items;
+    }
+
     public static void main(String[] args) throws ClassNotFoundException {
         Item item = new Item();
-        item.getItems();
+        item.getItemsDB();
         for (Item i: item.items) {
             System.out.println(i.getItemName());
 

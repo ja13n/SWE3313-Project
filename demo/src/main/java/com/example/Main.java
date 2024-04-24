@@ -4,18 +4,8 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -36,7 +26,7 @@ public class Main extends Application {
     private boolean thisloadingDock;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         stage = primaryStage;
         loginPageScene = loginPage();
         createAccountScene = createAccountPage();
@@ -76,7 +66,11 @@ public class Main extends Application {
             String password = "1234";
 
             if (userTextField.getText().equals(userNam) && pwBox.getText().equals(password)) {
-                switchScenes(createOrderPage());
+                try {
+                    switchScenes(createOrderPage());
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             else {
                 Alert dialog = new Alert(AlertType.INFORMATION);
@@ -137,9 +131,9 @@ public class Main extends Application {
         return createAccountScene;
     }
 
-    public Scene createOrderPage() {
+    public Scene createOrderPage() throws ClassNotFoundException {
         GridPane gp = new GridPane();
-        gp.setAlignment(Pos.CENTER);
+        gp.setAlignment(Pos.TOP_CENTER);
 
         gp.setHgap(10); // Set horizontal gap
         gp.setVgap(10); // Set vertical gap
@@ -166,23 +160,29 @@ public class Main extends Application {
         gp.add(deliveryRepIdLabel, 0, 3);
         gp.add(deliveryRepIdField, 1, 3);
 
-        Label itemNameLabel = new Label("Item Name");
+        Label itemNameLabel = new Label("Item");
         gp.add(itemNameLabel, 0, 4);
 
         Label quantityLabel = new Label("Quantity:");
         gp.add(quantityLabel, 1, 4);
 
-        addOrderItem(gp, "ALG WHITE BEER 12/19.2C", "15");
-        addOrderItem(gp, "ALG WHITE BEER 4/6BTL", "25");
-        addOrderItem(gp, "ALG WHITE BEER 2/12 CANS", "30");
+        final ComboBox cb = new ComboBox();
+        Item it = new Item();
+        it.getItemsDB();
+        for (Item i : it.getItems()) {
+            cb.getItems().addAll(it.getItemName());
+        }
+        for (int i = 0; i < 3; i++) {
+            addOrderItem(gp, it.getItems().get(i).getItemName(), Integer.toString(it.getItems().get(i).getQuantity()));
+        }
 
         HBox buttonsBox = new HBox(10);
-        Button submitButton = new Button("Submit Order");
+        Button submitButton = new Button("Submit");
         Button backButton = new Button("Back to Login");
         backButton.setOnAction(e -> switchScenes(loginPageScene));
         buttonsBox.getChildren().addAll(submitButton, backButton);
 
-        gp.add(buttonsBox, 0, 8, 4, 1);
+        gp.add(buttonsBox, 2, 8, 8, 1);
 
         Scene orderScene = new Scene(gp, 640, 400);
         return orderScene;
