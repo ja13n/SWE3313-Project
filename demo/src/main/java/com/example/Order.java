@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Order {
 
     private int orderID;
-    private ArrayList<Item> itemsList;
+    private ArrayList<Item> itemsList = new ArrayList<>();
     
 /**
  * Order constructor with orderId as a parameter
@@ -19,7 +19,10 @@ public class Order {
     public Order(int orderID)
     {
         this.orderID = orderID;
-        itemsList = new ArrayList<Item>();
+    }
+
+    public Order (Item item) {
+        this.itemsList.add(item);
     }
 
     /**

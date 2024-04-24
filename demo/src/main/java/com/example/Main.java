@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
- * 
+ *
  **/
 
 public class Main extends Application {
@@ -36,7 +36,7 @@ public class Main extends Application {
     private boolean thisloadingDock;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         stage = primaryStage;
         loginPageScene = loginPage();
         createAccountScene = createAccountPage();
@@ -76,7 +76,11 @@ public class Main extends Application {
             String password = "1234";
 
             if (userTextField.getText().equals(userNam) && pwBox.getText().equals(password)) {
-                switchScenes(createOrderPage());
+                try {
+                    switchScenes(createOrderPage());
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
             } else {
                 Alert dialog = new Alert(AlertType.INFORMATION);
                 dialog.setHeaderText(
@@ -137,7 +141,7 @@ public class Main extends Application {
         return createAccountScene;
     }
 
-    public Scene createOrderPage() {
+    public Scene createOrderPage() throws ClassNotFoundException {
         GridPane gp = new GridPane();
         gp.setAlignment(Pos.CENTER);
 
@@ -156,12 +160,12 @@ public class Main extends Application {
         gp.add(deliveryDateLabel, 0, 1);
         gp.add(deliveryDateField, 1, 1);
 
-        Label salesRepIdLabel = new Label("Sales Rep ID: <15 characters, alpha numeric>");
+        Label salesRepIdLabel = new Label("Item: <15 characters, alpha numeric>");
         TextField salesRepIdField = new TextField();
         gp.add(salesRepIdLabel, 0, 2);
         gp.add(salesRepIdField, 1, 2);
 
-        Label deliveryRepIdLabel = new Label("Delivery Rep ID: <15 characters, alpha numeric>");
+        Label deliveryRepIdLabel = new Label("Quantity: <15 characters, alpha numeric>");
         TextField deliveryRepIdField = new TextField();
         gp.add(deliveryRepIdLabel, 0, 3);
         gp.add(deliveryRepIdField, 1, 3);
@@ -172,17 +176,21 @@ public class Main extends Application {
         Label quantityLabel = new Label("Quantity:");
         gp.add(quantityLabel, 1, 4);
 
-        addOrderItem(gp, "ALG WHITE BEER 12/19.2C", "15");
-        addOrderItem(gp, "ALG WHITE BEER 4/6BTL", "25");
-        addOrderItem(gp, "ALG WHITE BEER 2/12 CANS", "30");
 
-        HBox buttonsBox = new HBox(10);
-        Button submitButton = new Button("Submit Order");
+        Item it = new Item();
+        it.getItemsDB();
+        for (int i = 0; i < 7; i++) {
+            addOrderItem(gp, it.getItems().get(i).getItemName(), Integer.toString(it.getItems().get(i).getQuantity()));
+        }
+
+        HBox buttonsBox = new HBox();
+        Button submitButton = new Button("Submit");
+        Order order = new Order(new Item())
         Button backButton = new Button("Back to Login");
         backButton.setOnAction(e -> switchScenes(loginPageScene));
         buttonsBox.getChildren().addAll(submitButton, backButton);
 
-        gp.add(buttonsBox, 0, 8, 4, 1);
+        gp.add(buttonsBox, 2, 8, 2, 1);
 
         Scene orderScene = new Scene(gp, 640, 400);
         return orderScene;
@@ -237,7 +245,6 @@ public class Main extends Application {
         gp.setPadding(new Insets(25, 25, 25, 25));
 
         Button addCustomerButton = new Button("Add Customer");
-        Button backButton = new Button("Back");
 
         Label companyNameLabel = new Label("Company Name: ");
         TextField companyNameField = new TextField();
@@ -285,10 +292,7 @@ public class Main extends Application {
             myListView.getItems().add(0, customer.toString());
         });
 
-        backButton.setOnAction(e -> switchScenes(choicePage()));
-
         gp.add(addCustomerButton, 0, 7);
-        gp.add(backButton, 0, 8);
         gp.add(myListView, 2, 1, 1, 7);
 
         Scene customerPage = new Scene(gp, 640, 400);
