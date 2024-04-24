@@ -5,6 +5,7 @@ package com.example;
  **/
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Customer{
 
@@ -29,6 +30,7 @@ public class Customer{
         this.contactInfo = contactinfo;
         this.loadingDock = loadingDock;
         this.deliveryHours = deliveryHours;
+        
     }
 
     /*
@@ -84,4 +86,6 @@ public class Customer{
      * @return deliveryHours
      */
     public String getDeliveryHours() {return this.deliveryHours;}
+
+    
 }
