@@ -196,6 +196,21 @@ public class Main extends Application {
         gp.add(buttonsBox, 2, 8, 2, 1);
 
         Scene orderScene = new Scene(gp, 640, 400);
+
+        GridPane gp2 = new GridPane();
+
+        Scene orderConfirmationScene = new Scene(gp2, 640, 400);
+
+        String accountIDString = accountIdField.getText();
+        String salesRepString = salesRepIdField.getText();
+        String deliveryDateString = deliveryDateField.getText();
+        String deliveryIDString = deliveryRepIdField.getText();
+        
+
+        submitButton.setOnAction(e -> {
+            switchScenes(orderConfirmationScene);
+        });
+
         return orderScene;
     }
 
