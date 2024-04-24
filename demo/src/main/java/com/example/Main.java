@@ -244,6 +244,8 @@ public class Main extends Application {
         gp.setVgap(10);
         gp.setPadding(new Insets(25, 25, 25, 25));
 
+        Button backButton = new Button("Back to login");
+
         Button addCustomerButton = new Button("Add Customer");
 
         Label companyNameLabel = new Label("Company Name: ");
@@ -292,8 +294,13 @@ public class Main extends Application {
             myListView.getItems().add(0, customer.toString());
         });
 
+        backButton.setOnAction(e -> {
+            switchScenes(choicePage());
+        });
+
         gp.add(addCustomerButton, 0, 7);
         gp.add(myListView, 2, 1, 1, 7);
+        gp.add(backButton, 1, 1);
 
         Scene customerPage = new Scene(gp, 640, 400);
         return customerPage;
