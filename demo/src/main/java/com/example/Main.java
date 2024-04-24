@@ -198,6 +198,7 @@ public class Main extends Application {
         Scene orderScene = new Scene(gp, 640, 400);
 
         GridPane gp2 = new GridPane();
+        gp2.setAlignment(Pos.BASELINE_CENTER);
 
         Scene orderConfirmationScene = new Scene(gp2, 640, 400);
 
@@ -205,6 +206,25 @@ public class Main extends Application {
         String salesRepString = salesRepIdField.getText();
         String deliveryDateString = deliveryDateField.getText();
         String deliveryIDString = deliveryRepIdField.getText();
+
+        Label confirmationAccID = new Label("Account ID: " + accountIDString);
+        Label confirmationSalesRepID = new Label("Sales Rep ID: " + salesRepString);
+        Label confirmationDeliveryDate = new Label("Delivery Date: " + deliveryDateString);
+        Label confirmationDeliveryID = new Label("Account ID: " + deliveryIDString);
+
+        Button backButton2 = new Button("Back");
+
+        gp2.add(confirmationAccID, 1, 2);
+        gp2.add(confirmationSalesRepID, 1, 3);
+        gp2.add(confirmationDeliveryDate, 1, 4);
+        gp2.add(confirmationDeliveryID, 1, 5);
+
+        gp2.add(backButton2, 5, 5);
+
+        backButton2.setOnAction(e -> {
+            switchScenes(orderScene);
+        });
+        
         
 
         submitButton.setOnAction(e -> {
