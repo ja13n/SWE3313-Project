@@ -160,12 +160,12 @@ public class Main extends Application {
         gp.add(deliveryDateLabel, 0, 1);
         gp.add(deliveryDateField, 1, 1);
 
-        Label salesRepIdLabel = new Label("Sales Rep ID: <15 characters, alpha numeric>");
+        Label salesRepIdLabel = new Label("Item: <15 characters, alpha numeric>");
         TextField salesRepIdField = new TextField();
         gp.add(salesRepIdLabel, 0, 2);
         gp.add(salesRepIdField, 1, 2);
 
-        Label deliveryRepIdLabel = new Label("Delivery Rep ID: <15 characters, alpha numeric>");
+        Label deliveryRepIdLabel = new Label("Quantity: <15 characters, alpha numeric>");
         TextField deliveryRepIdField = new TextField();
         gp.add(deliveryRepIdLabel, 0, 3);
         gp.add(deliveryRepIdField, 1, 3);
@@ -185,6 +185,7 @@ public class Main extends Application {
 
         HBox buttonsBox = new HBox();
         Button submitButton = new Button("Submit");
+        Order order = new Order(new Item())
         Button backButton = new Button("Back to Login");
         backButton.setOnAction(e -> switchScenes(loginPageScene));
         buttonsBox.getChildren().addAll(submitButton, backButton);
