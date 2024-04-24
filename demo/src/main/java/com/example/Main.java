@@ -237,6 +237,7 @@ public class Main extends Application {
         gp.setPadding(new Insets(25, 25, 25, 25));
 
         Button addCustomerButton = new Button("Add Customer");
+        Button backButton = new Button("Back");
 
         Label companyNameLabel = new Label("Company Name: ");
         TextField companyNameField = new TextField();
@@ -284,7 +285,10 @@ public class Main extends Application {
             myListView.getItems().add(0, customer.toString());
         });
 
+        backButton.setOnAction(e -> switchScenes(choicePage()));
+
         gp.add(addCustomerButton, 0, 7);
+        gp.add(backButton, 0, 8);
         gp.add(myListView, 2, 1, 1, 7);
 
         Scene customerPage = new Scene(gp, 640, 400);
