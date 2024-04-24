@@ -50,6 +50,29 @@
          }
      }
 
+     public Item findItemDB(String EPD) throws ClassNotFoundException {
+         Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+         String sql = "SELECT ProductID, EPD, OnHand FROM Inventory WHERE EPD=\"" + EPD + "\"";
+         System.out.println(sql);
+         try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://Inventory/Inventory.mdb")) {
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql);
+             if (rs.next()) { // Move cursor to the first row
+                 this.itemID = rs.getInt("ProductID");
+                 this.itemName = rs.getString("EPD");
+                 this.quantity = rs.getInt("OnHand");
+                 Item item = new Item(this.itemID, this.itemName, this.quantity);
+                 System.out.println(item.getItemName());
+                 return item;
+             } else {
+                 // Handle case when no rows are returned
+                 System.out.println("No item found with EPD: " + EPD);
+                 return null;
+             }
+         } catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+     }
      /**
       * returns the item id
       * @return itemID
@@ -86,13 +109,5 @@
      public ArrayList<Item> getItems() {
          return this.items;
      }
- 
-     public static void main(String[] args) throws ClassNotFoundException {
-         Item item = new Item();
-         item.getItemsDB();
-         for (Item i: item.items) {
-             System.out.println(i.getItemName());
- 
-         }
-     }
+
  }
